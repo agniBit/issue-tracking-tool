@@ -20,6 +20,7 @@ mongoose.connect(
 );
 
 
+
 router.post('/register', async (req, res) => {
     const validation = schema.validate(req.body);
     if(validation.error){

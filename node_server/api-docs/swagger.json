@@ -1,0 +1,445 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Simple Inventory API",
+    "description": "This is a simple API",
+    "contact": {
+      "email": "you@your-company.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8989",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "registerUser",
+      "description": "Secured Admin-only calls"
+    },
+    {
+      "name": "userlogin",
+      "description": "User can login to account"
+    },
+    {
+      "name": "data",
+      "description": "fetch data from database"
+    },
+    {
+      "name": "action",
+      "description": "action on issue"
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "registerUser"
+        ],
+        "summary": "register user",
+        "description": "register user",
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/usenInfo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "user created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "userlogin"
+        ],
+        "summary": "login user",
+        "description": "login user",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/usenInfo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A user object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fetch": {
+      "post": {
+        "tags": [
+          "data"
+        ],
+        "summary": "login user",
+        "description": "login user",
+        "operationId": "fetchdata",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/data"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A user object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/getissues": {
+      "post": {
+        "tags": [
+          "data"
+        ],
+        "summary": "login user",
+        "description": "login user",
+        "operationId": "getissues",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/data"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A user object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/addissue": {
+      "post": {
+        "tags": [
+          "data"
+        ],
+        "summary": "login user",
+        "description": "login user",
+        "operationId": "addissue",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/issue"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A user object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/actionOnIssue": {
+      "put": {
+        "tags": [
+          "action"
+        ],
+        "summary": "assign task",
+        "description": "assign task",
+        "operationId": "taskassigne",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/action"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A user object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/addcomment": {
+      "put": {
+        "tags": [
+          "action"
+        ],
+        "summary": "assign task",
+        "description": "assign task",
+        "operationId": "addcomment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/comment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A user object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "usenInfo": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "maxLength": 16,
+            "minLength": 6,
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 16,
+            "minLength": 6,
+            "type": "string"
+          }
+        }
+      },
+      "issue": {
+        "required": [
+          "Decrpition",
+          "RaisedBy",
+          "Title"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "maxLength": 50,
+            "minLength": 10,
+            "type": "string"
+          },
+          "decrpition": {
+            "maxLength": 300,
+            "minLength": 10,
+            "type": "string"
+          },
+          "raisedBy": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "subcategory": {
+            "type": "string"
+          },
+          "piority": {
+            "type": "string"
+          },
+          "assignee": {
+            "type": "string"
+          },
+          "lable": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "attachment": {
+            "type": "object"
+          }
+        }
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "skip": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "filter": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "comment": {
+        "required": [
+          "comment",
+          "commneBy",
+          "reffrence"
+        ],
+        "type": "object",
+        "properties": {
+          "commneBy": {
+            "type": "string"
+          },
+          "comment": {
+            "maxLength": 300,
+            "type": "string"
+          },
+          "reffrence": {
+            "type": "string"
+          },
+          "attachment": {
+            "type": "object"
+          }
+        }
+      },
+      "action": {
+        "required": [
+          "actionId",
+          "actionPerformed",
+          "reffrence"
+        ],
+        "type": "object",
+        "properties": {
+          "actionId": {
+            "type": "string"
+          },
+          "reffrence": {
+            "type": "string"
+          },
+          "actionPerformed": {
+            "type": "string"
+          },
+          "additionalINfo": {
+            "type": "object"
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "inline_response_200_2": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
