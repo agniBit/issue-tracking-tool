@@ -14,7 +14,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8989",
+      "url": "http://localhost:8765",
       "description": "SwaggerHub API Auto Mocking"
     }
   ],
@@ -37,7 +37,7 @@
     }
   ],
   "paths": {
-    "/register": {
+    "/api/user/register": {
       "post": {
         "tags": [
           "registerUser"
@@ -68,7 +68,7 @@
         }
       }
     },
-    "/login": {
+    "/api/user/login": {
       "post": {
         "tags": [
           "userlogin"
@@ -99,7 +99,7 @@
         }
       }
     },
-    "/fetch": {
+    "/api/data/fetch": {
       "post": {
         "tags": [
           "data"
@@ -135,7 +135,7 @@
         ]
       }
     },
-    "/getissues": {
+    "/api/data/getissues": {
       "post": {
         "tags": [
           "data"
@@ -171,7 +171,7 @@
         ]
       }
     },
-    "/addissue": {
+    "/api/data/addissue": {
       "post": {
         "tags": [
           "data"
@@ -207,7 +207,7 @@
         ]
       }
     },
-    "/actionOnIssue": {
+    "/api/data/actionOnIssue": {
       "put": {
         "tags": [
           "action"
@@ -243,7 +243,7 @@
         ]
       }
     },
-    "/addcomment": {
+    "/api/data/addcomment": {
       "put": {
         "tags": [
           "action"

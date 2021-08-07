@@ -14,8 +14,11 @@ router.post('/getissues', varify, async (req, res) => {
         const collection = connect.collection("msgIdLogDB"); 
       
         var data = collection.find().skip(parseInt(req.body.skip)).limit(parseInt(req.body.limit)).toArray(function(err, result) {
-            if (err) throw err;
-            res.send(result);
+            if (err){
+                res.status(400).send(JSON.stringify({'error':'data not found'}));
+            } else {
+                res.send(JSON.stringify({'data':result}));
+            }
         });
     }).catch((err) => { 
         console.log(err.Message); 

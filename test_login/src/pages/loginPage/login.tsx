@@ -1,10 +1,9 @@
+import axios, { AxiosRequestConfig } from "axios";
 import React, { useState } from "react";
-
 interface loginData {
   username: string;
   password: string;
 }
-
 
 export default function Login() {
   const [loginInfo, setLoginInfo] = useState<loginData>({
@@ -19,9 +18,28 @@ export default function Login() {
     });
   }
 
-  const submitForm = (e:any) => {
+  const submitForm = async (e:any) => {
     e.preventDefault();
-    console.log(loginInfo);
+
+    var req_data: AxiosRequestConfig = {
+      method: 'post',
+      url: 'http://localhost:8765/api/user/login',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : JSON.stringify(loginInfo),
+    };
+    await axios(req_data).then(function (response: { data: any; }) {
+      if (response.data.token) {
+        localStorage.setItem('userData',
+          JSON.stringify({
+            'username': loginInfo.username,
+            'accessToken': response.data.token
+          }));
+      }
+    }).catch(function (error: any) {
+      console.log(error);
+    });
   }
 
   return (
@@ -34,3 +52,5 @@ export default function Login() {
     </div>
   )
 }
+
+

@@ -15,7 +15,7 @@ const schema = Joi.object({
 
 mongoose.connect(
     process.env.mongo_url,
-    { useNewUrlParser: true },
+    { useNewUrlParser: true, useUnifiedTopology: true },
     () => console.log('connected to DB')
 );
 
@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
             await user.save(function(err, doc){
                 if(err) res.json({"error()":err});
                 else {
-                        res.json({"doc ":doc});
+                        res.json({"status":"success"});
                 }
             })
             console.log('saved');
