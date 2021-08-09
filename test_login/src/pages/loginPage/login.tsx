@@ -5,7 +5,7 @@ interface loginData {
   password: string;
 }
 
-export default function Login() {
+export default function Login(props: { history: string[]; }) {
   const [loginInfo, setLoginInfo] = useState<loginData>({
     username: '',
     password: ''
@@ -31,11 +31,9 @@ export default function Login() {
     };
     await axios(req_data).then(function (response: { data: any; }) {
       if (response.data.token) {
-        localStorage.setItem('userData',
-          JSON.stringify({
-            'username': loginInfo.username,
-            'accessToken': response.data.token
-          }));
+        localStorage.setItem('accessToken', response.data.token);
+        localStorage.setItem('username', JSON.stringify(loginInfo.username));
+        props.history.push('/dashboard');
       }
     }).catch(function (error: any) {
       console.log(error);
