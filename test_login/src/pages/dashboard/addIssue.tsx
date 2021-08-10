@@ -10,12 +10,12 @@ class AddIssue extends React.Component {
       decrpition: "",
       raisedBy: localStorage.getItem('username'),
       type: "",
-      category: "",
+      category: "Bug",
       subcategory: "",
-      piority: "",
-      assignee: "",
-      lable: "",
-      status: "",
+      piority: "non",
+      assignee: "-",
+      lable: "bug",
+      status: "todo",
       attachment: {}
     }
   }

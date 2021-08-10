@@ -1,0 +1,50 @@
+.dashboard {
+    background: rgb(27,13,29);
+    background: linear-gradient(-45deg, rgba(27,13,29,1) 0%, rgba(89,54,119,0.9556467563291139) 100%);
+    width: 86vw;
+    height: 100vh;
+    background-color: azure;
+    padding: 0 7vw;
+    margin: 0 !important;
+    color: white;
+    .data_row_wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0;
+        border: 1px;
+        border-color: white;
+        .even_row{
+            background-color: rgba(27,13,29,1);
+        }
+        .odd_row{
+            background-color: rgba(89,54,119,0.9556467563291139);
+        }
+        .data_row {
+            width: 100%;
+            margin: 3px 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding: 5px 5px;
+            transition: ease-out .3s;
+            border-radius: 5px;
+            box-shadow: -1px 4px 13px -3px rgba(0,0,0,0.82);
+            -webkit-box-shadow: -1px 4px 13px -3px rgba(0,0,0,0.82);
+            -moz-box-shadow: -1px 4px 13px -3px rgba(0,0,0,0.82);
+            .title{flex: 2;}
+            .decrpition{flex: 3;}
+            .raisedBy{flex: 1;}
+            .category{flex: 1;}
+            .subcategory{flex: 1;}
+            .piority{flex: 1;}
+            .assignee{flex: 1;}
+            .status{flex: 1;}
+            &:hover {
+                background-color: white !important;
+                color: black !important;
+                transition: .5s;
+            }
+        }
+    }
+}

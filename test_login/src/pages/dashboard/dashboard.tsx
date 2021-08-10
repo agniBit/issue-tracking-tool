@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import AddIssue from "./addIssue";
+import './css/dashboard.scss'
 
 // [object Null]
 // [object Array]
@@ -46,21 +47,22 @@ export default function Dashboard(props:any) {
       <div>
         <AddIssue />
       </div>
-      <div>
+      <div className='data_row_wrapper'>
         {
           accessToken ?
             fetchData.map((data, i) => {
+              var row_type:string = (i % 2 === 0) ? 'even_row' : 'odd_row';
               let d = JSON.parse(JSON.stringify(data));
               return (
-                <div key={i}>
-                  {d.title}
-                  {d.decrpition}
-                  {d.raisedBy}
-                  {d.category}
-                  {d.subcategory}
-                  {d.piority}
-                  {d.assignee}
-                  {d.status}
+                <div key={i} className={`data_row ${row_type}`}>
+                  <div className='title'>{d.title}</div>
+                  {/* <div className='decrpition'>{d.decrpition}</div> */}
+                  <div className='raisedBy'>{d.raisedBy}</div>
+                  <div className='category'>{d.category}</div>
+                  {/* <div className='subcategory'>{d.subcategory}</div> */}
+                  <div className='piority'>{d.piority}</div>
+                  <div className='assignee'>{d.assignee}</div>
+                  <div className='status'>{d.status}</div>
                   {/* <div>{JSON.stringify(d.waID)}</div>
                   <div>{(Object.prototype.toString.call(d.msg) + JSON.stringify(d.msg))}</div>
                   <div>{JSON.stringify(d.msg.user_id)}</div>
