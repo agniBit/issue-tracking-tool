@@ -3,12 +3,6 @@ import axios, { AxiosRequestConfig } from "axios";
 import AddIssue from "./addIssue";
 import './css/dashboard.scss'
 
-// [object Null]
-// [object Array]
-// [object Object]
-// typeof String
-// typeof Number
-
 export default function Dashboard(props:any) {
   const [fetchData, fetchDataSet] = useState(Array);
   const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
@@ -56,18 +50,11 @@ export default function Dashboard(props:any) {
               return (
                 <div key={i} className={`data_row ${row_type}`}>
                   <div className='title'>{d.title}</div>
-                  {/* <div className='decrpition'>{d.decrpition}</div> */}
                   <div className='raisedBy'>{d.raisedBy}</div>
                   <div className='category'>{d.category}</div>
-                  {/* <div className='subcategory'>{d.subcategory}</div> */}
                   <div className='piority'>{d.piority}</div>
                   <div className='assignee'>{d.assignee}</div>
                   <div className='status'>{d.status}</div>
-                  {/* <div>{JSON.stringify(d.waID)}</div>
-                  <div>{(Object.prototype.toString.call(d.msg) + JSON.stringify(d.msg))}</div>
-                  <div>{JSON.stringify(d.msg.user_id)}</div>
-                  <div>{(Object.prototype.toString.call(d.msg.buttons) + JSON.stringify(d.msg.buttons))}</div>
-                  <div>{JSON.stringify(d.msg.botMessage)}</div> */}
                 </div>);
             }) : <button onClick={() => { props.history.replace('/login'); }}>Login</button>
         }

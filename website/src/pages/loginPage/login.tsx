@@ -1,5 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios";
 import React, { useState } from "react";
+import './css/login.scss'
+
+
 interface loginData {
   username: string;
   password: string;
@@ -41,14 +44,34 @@ export default function Login(props: { history: string[]; }) {
   }
 
   return (
-    <div className='loginWrapper'>
-      <form>
-        <input type='text' className='form_input' name='username' onChange={onInputChange} required/>
-        <input type='password' className='form_input' name='password' onChange={onInputChange} required/>
-        <button type='submit' onClick={submitForm}>Login</button>
-      </form>
+    <div className='login'>
+      <div className='login_container'>
+        <div className='welcome_div'>
+          <img src='./loginBanner.png' className='loginBnnerImage' alt='bannerImage' />
+        </div>
+        <div className='login_form_container'>
+          <div className='login_wrapper'>
+            <div className='login_text'>
+              <h1>Login</h1>
+            </div>
+            <form className='form_container'>
+              <div className='input_field'>
+                <img src='./user.png' className='icon' alt='user' />
+                <input type='text' className='form_input' name='username' onChange={onInputChange} placeholder="Username" required/>
+              </div>
+              <div className='input_field'>
+                <img src='./padlock.png' className='icon' alt='pass' />
+                <input type='password' className='form_input' name='password' onChange={onInputChange} placeholder='Password' required/>
+              </div>
+              <div className='button_conatiner'>
+                <button type='submit' onClick={submitForm}>Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
 
