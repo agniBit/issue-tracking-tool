@@ -5,7 +5,6 @@ const Issue = require('../model/Issue');
 
 dotenv.config();
 
-
 router.get('/getissues', varify, async (req, res) => {
     try {
         const skipValue = parseInt(req.query.skip) || 0;
@@ -17,7 +16,6 @@ router.get('/getissues', varify, async (req, res) => {
         res.status(400).send(err);
     }
 });
-
 
 router.post('/addissue', varify, async (req, res) => {
     const issue = new Issue(req.body);
@@ -33,9 +31,5 @@ router.post('/addissue', varify, async (req, res) => {
         res.status(400).send(err);
     }
 });
-
-
-
-
 
 module.exports = router;
