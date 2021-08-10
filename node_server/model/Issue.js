@@ -40,6 +40,8 @@ const issueSchema = new mongoose.Schema({
     attachment: {
         type : Object,
     },
+}, {
+    collection: 'issues',
 });
 
 

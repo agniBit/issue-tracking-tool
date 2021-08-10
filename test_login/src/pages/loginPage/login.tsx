@@ -32,7 +32,7 @@ export default function Login(props: { history: string[]; }) {
     await axios(req_data).then(function (response: { data: any; }) {
       if (response.data.token) {
         localStorage.setItem('accessToken', response.data.token);
-        localStorage.setItem('username', JSON.stringify(loginInfo.username));
+        localStorage.setItem('username', loginInfo.username);
         props.history.push('/dashboard');
       }
     }).catch(function (error: any) {

@@ -1,3 +1,4 @@
+import axios, { AxiosRequestConfig } from "axios";
 import React from "react";
   
 
@@ -7,7 +8,7 @@ class AddIssue extends React.Component {
     this.state = {
       title: "",
       decrpition: "",
-      raisedBy: "",
+      raisedBy: localStorage.getItem('username'),
       type: "",
       category: "",
       subcategory: "",
@@ -20,13 +21,26 @@ class AddIssue extends React.Component {
   }
 
   onInputChange = (e: { target: { name: string; value: string; }; }) => {
-    console.log(e);
     this.setState({ [e.target.name] : e.target.value });
   }
 
-  submitForm = (e:any) => {
+  submitForm = async (e:any) => {
     e.preventDefault();
-    console.log(this.state);
+    console.log(JSON.stringify(this.state));
+    var req_data: AxiosRequestConfig = {
+      method: 'post',
+      url: 'http://localhost:8765/api/data/addissue',
+      headers: {
+        'auth-token': localStorage.getItem('accessToken'),
+        'Content-Type': 'application/json'
+      },
+      data : this.state,
+    };
+    await axios(req_data).then(function (response: { data: any; }) {
+      console.log('data pushed to DB');
+    }).catch(function (error: any) {
+      console.log(error);
+    });
   }
 
   render() {
@@ -69,7 +83,7 @@ class AddIssue extends React.Component {
           <option value="assigned">Assigned</option>
           <option value="canceled">Canceled</option>
         </select>
-        <button type='submit' onClick={this.submitForm}>Login</button>
+        <button type='submit' onClick={this.submitForm}>Add Issue</button>
       </form>
     </div>);
   }

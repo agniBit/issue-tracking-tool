@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const User = require('../model/User');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -12,12 +11,6 @@ const schema = Joi.object({
     username: Joi.string().min(6).required(),
     password: Joi.string().min(6).required(),
 });
-
-mongoose.connect(
-    process.env.mongo_url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    () => console.log('connected to DB')
-);
 
 
 

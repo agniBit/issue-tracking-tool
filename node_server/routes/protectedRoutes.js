@@ -1,84 +1,40 @@
 const router = require('express').Router();
-let MongoClient = require('mongodb').MongoClient;
 const varify = require('./auth');
 const dotenv = require('dotenv');
+const Issue = require('../model/Issue');
+
 dotenv.config();
 
 
-router.post('/getissues', varify, async (req, res) => {
-    MongoClient.connect(process.env.mongo_url).then((client) => { 
+router.get('/getissues', varify, async (req, res) => {
+    try {
+        const skipValue = parseInt(req.query.skip) || 0;
+        const limitValue = parseInt(req.query.limit) || 50;
+        const posts = await Issue.find().limit(limitValue).skip(skipValue);
+        res.status(200).send(posts);
+    } catch(err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
+});
 
-        const connect = client.db('userData'); 
-      
-        // Collection name 
-        const collection = connect.collection("msgIdLogDB"); 
-      
-        var data = collection.find().skip(parseInt(req.body.skip)).limit(parseInt(req.body.limit)).toArray(function(err, result) {
-            if (err){
-                res.status(400).send(JSON.stringify({'error':'data not found'}));
-            } else {
-                res.send(JSON.stringify({'data':result}));
+
+router.post('/addissue', varify, async (req, res) => {
+    const issue = new Issue(req.body);
+    try{
+        await issue.save(function(err, doc){
+            if(err) res.json({"status":"error","error":err});
+            else {
+                res.json({"status":"success"});
             }
         });
-    }).catch((err) => { 
-        console.log(err.Message); 
-    })
+    } catch(err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
 });
 
 
-router.post('/getactiveissues', varify, async (req, res) => {
-    MongoClient.connect(process.env.mongo_url).then((client) => { 
-
-        const connect = client.db('userData'); 
-      
-        // Collection name 
-        const collection = connect.collection("msgIdLogDB"); 
-      
-        var data = collection.find().skip(parseInt(req.body.skip)).limit(parseInt(req.body.limit)).toArray(function(err, result) {
-            if (err) throw err;
-            res.send(result);
-        });
-    }).catch((err) => { 
-        console.log(err.Message); 
-    })
-});
-
-
-
-router.post('/gettodos', varify, async (req, res) => {
-    MongoClient.connect(process.env.mongo_url).then((client) => { 
-
-        const connect = client.db('userData'); 
-      
-        // Collection name 
-        const collection = connect.collection("msgIdLogDB"); 
-      
-        var data = collection.find().skip(parseInt(req.body.skip)).limit(parseInt(req.body.limit)).toArray(function(err, result) {
-            if (err) throw err;
-            res.send(result);
-        });
-    }).catch((err) => { 
-        console.log(err.Message); 
-    })
-});
-
-
-router.post('/getassigedissues', varify, async (req, res) => {
-    MongoClient.connect(process.env.mongo_url).then((client) => { 
-
-        const connect = client.db('userData'); 
-      
-        // Collection name 
-        const collection = connect.collection("msgIdLogDB"); 
-      
-        var data = collection.find().skip(parseInt(req.body.skip)).limit(parseInt(req.body.limit)).toArray(function(err, result) {
-            if (err) throw err;
-            res.send(result);
-        });
-    }).catch((err) => { 
-        console.log(err.Message); 
-    })
-});
 
 
 

@@ -4,6 +4,14 @@ const authRoute = require('./routes/routes');
 const protectedRoutes = require('./routes/protectedRoutes')
 const swaggerUi = require('swagger-ui-express');
 const swaggerDoc = require('./api-docs/swagger.json');
+const mongoose = require('mongoose');
+
+
+mongoose.connect(
+  process.env.mongo_url,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => console.log('connected to DB')
+);
 
 app.use(express.json());
 
