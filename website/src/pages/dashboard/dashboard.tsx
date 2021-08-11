@@ -37,28 +37,28 @@ export default function Dashboard(props:any) {
   
 
   return (
-    <div className='dashboard'>
-      <div>
-        <AddIssue />
+    <div>
+      <div className='dashboard'>
+        <div className='data_row_wrapper'>
+          {
+            accessToken ?
+              fetchData.map((data, i) => {
+                var row_type:string = (i % 2 === 0) ? 'even_row' : 'odd_row';
+                let d = JSON.parse(JSON.stringify(data));
+                return (
+                  <div key={i} className={`data_row ${row_type}`}>
+                    <div className='title'>{d.title}</div>
+                    <div className='raisedBy'>{d.raisedBy}</div>
+                    <div className='category'>{d.category}</div>
+                    <div className='piority'>{d.piority}</div>
+                    <div className='assignee'>{d.assignee}</div>
+                    <div className='status'>{d.status}</div>
+                  </div>);
+              }) : <button onClick={() => { props.history.replace('/login'); }}>Login</button>
+          }
+        </div>
       </div>
-      <div className='data_row_wrapper'>
-        {
-          accessToken ?
-            fetchData.map((data, i) => {
-              var row_type:string = (i % 2 === 0) ? 'even_row' : 'odd_row';
-              let d = JSON.parse(JSON.stringify(data));
-              return (
-                <div key={i} className={`data_row ${row_type}`}>
-                  <div className='title'>{d.title}</div>
-                  <div className='raisedBy'>{d.raisedBy}</div>
-                  <div className='category'>{d.category}</div>
-                  <div className='piority'>{d.piority}</div>
-                  <div className='assignee'>{d.assignee}</div>
-                  <div className='status'>{d.status}</div>
-                </div>);
-            }) : <button onClick={() => { props.history.replace('/login'); }}>Login</button>
-        }
-      </div>
+      <AddIssue />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import React from "react";
-  
+import './css/addIssue.scss'
 
 class AddIssue extends React.Component {
   constructor (){
@@ -43,48 +43,62 @@ class AddIssue extends React.Component {
     });
   }
 
+  selectButton = (props: any) => {
+    return (
+      <div className='select_button_conatiner'>
+        <button className='select_button' name={props.name}>
+          <img src={props.image} className='select_button_image' alt='img' />
+          <text>{props.text}</text>
+        </button>
+      </div>
+    );
+  }
+
   render() {
-    return (<div className='addIssueForm'>
-      <form>
-        <input type='text' className='form_input' name='title' onChange={this.onInputChange} required />
-        <input type='text' className='form_input' name='decrpition' onChange={this.onInputChange} required />
-        <select name="category" onChange={this.onInputChange} id="category">
-          <option value="category_id">fetch category</option>
-        </select>
-        <select name="assignee" onChange={this.onInputChange} id="assignee">
-          <option value="member_id">fetch team members</option>
-        </select>
-        {/* <select name="type" onChange={this.onInputChange} id="type">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="opel">Opel</option>
-          <option value="audi">Audi</option>
-        </select> */}
-        {/* <select name="subcategory" onChange={this.onInputChange} id="subcategory">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="opel">Opel</option>
-          <option value="audi">Audi</option>
-        </select> */}
-        <select name="piority" onChange={this.onInputChange} id="piority">
-          <option value="non">No priority</option>
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-        </select>
-        <select name="label" onChange={this.onInputChange} id="label">
-          <option value="bug">Bug</option>
-          <option value="feature">Feature</option>
-          <option value="improvemnet">Improvemnet</option>
-        </select>
-        <select name="status" onChange={this.onInputChange} id="status">
-          <option value="todo">Todo</option>
-          <option value="done">Done</option>
-          <option value="assigned">Assigned</option>
-          <option value="canceled">Canceled</option>
-        </select>
-        <button type='submit' onClick={this.submitForm}>Add Issue</button>
-      </form>
+    return (
+      <div className='add_new_issue'>
+        <div className='new_issue_container'>
+          <form className='new_issue_form'>
+            <div className='textarea_container'>
+              <textarea className='form_input title' placeholder='Title' name='title' onChange={this.onInputChange} required />
+              <textarea className='form_input description' placeholder='Issue Description' name='decrpition' onChange={this.onInputChange} required />
+            </div>
+            <div className='select_options'>
+              <this.selectButton name='assignee' image='./assets/taskAssign.jpeg' text='Assignee' />
+              <this.selectButton name='piority' image='./assets/priority2.png' text='Piority' />
+              <this.selectButton name='label' image='./assets/label.jpg' text='Label' />
+              <this.selectButton name='status' image='./assets/status.png' text='Status' />
+              <this.selectButton name='more' image='./assets/more.png' text='More' />
+              {/* <select name="category" className='select_input' onChange={this.onInputChange} id="category">
+                <option value="category_id">fetch category</option>
+              </select>
+              <select name="assignee" className='select_input' onChange={this.onInputChange} id="assignee">
+                <option value="member_id">fetch team members</option>
+              </select>
+              <select name="piority" className='select_input' onChange={this.onInputChange} id="piority">
+                <option value="non">No priority</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+              <select name="label" className='select_input' onChange={this.onInputChange} id="label">
+                <option value="bug">Bug</option>
+                <option value="feature">Feature</option>
+                <option value="improvemnet">Improvemnet</option>
+              </select>
+              <select name="status" className='select_input' onChange={this.onInputChange} id="status">
+                <option value="todo">Todo</option>
+                <option value="done">Done</option>
+                <option value="assigned">Assigned</option>
+                <option value="canceled">Canceled</option>
+              </select> */}
+            </div>
+            <div className='submit_button_container'>
+              <button className='submit_form_btn' type='submit' onClick={this.submitForm}>Add Issue</button>
+              <button className='cancel_form_btn'>Cancel</button>
+            </div>
+          </form>
+          </div>
     </div>);
   }
 }
