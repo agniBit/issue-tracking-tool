@@ -47,7 +47,7 @@ export default function Login(props: { history: string[]; }) {
     <div className='login'>
       <div className='login_container'>
         <div className='welcome_div'>
-          <img src='./loginBanner.png' className='loginBnnerImage' alt='bannerImage' />
+          <img src='./assets/loginBanner.png' className='loginBnnerImage' alt='bannerImage' />
         </div>
         <div className='login_form_container'>
           <div className='login_wrapper'>
@@ -56,11 +56,11 @@ export default function Login(props: { history: string[]; }) {
             </div>
             <form className='form_container'>
               <div className='input_field'>
-                <img src='./user.png' className='icon' alt='user' />
+                <img src='./assets/user.png' className='icon' alt='user' />
                 <input type='text' className='form_input' name='username' onChange={onInputChange} placeholder="Username" required/>
               </div>
               <div className='input_field'>
-                <img src='./padlock.png' className='icon' alt='pass' />
+                <img src='./assets/padlock.png' className='icon' alt='pass' />
                 <input type='password' className='form_input' name='password' onChange={onInputChange} placeholder='Password' required/>
               </div>
               <div className='button_conatiner'>
