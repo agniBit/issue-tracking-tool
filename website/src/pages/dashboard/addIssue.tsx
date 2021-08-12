@@ -1,32 +1,66 @@
 import axios, { AxiosRequestConfig } from "axios";
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import OutsideClick from "../../clickOutSide";
 import './css/addIssue.scss'
 
-class AddIssue extends React.Component {
-  constructor (){
-    super(AddIssue);
-    this.state = {
-      title: "",
-      decrpition: "",
-      raisedBy: localStorage.getItem('username'),
-      type: "",
-      category: "Bug",
-      subcategory: "",
-      piority: "non",
-      assignee: "-",
-      lable: "bug",
-      status: "todo",
-      attachment: {}
-    }
-  }
 
-  onInputChange = (e: { target: { name: string; value: string; }; }) => {
-    this.setState({ [e.target.name] : e.target.value });
-  }
+interface addIssueFormData{
+  title: string,
+  decrpition: string,
+  raisedBy: string | null,
+  type: string,
+  category: string,
+  subcategory: string,
+  piority: string,
+  assignee: string,
+  lable: string,
+  status: string,
+  attachment: object
+}
 
-  submitForm = async (e:any) => {
+
+function SelectButton(props: any) {
+  return (
+    <div className='select_button_conatiner'>
+      <button className='select_button' name={props.name}>
+        <img src={props.image} className='select_button_image' alt='img' />
+        <text>{props.text}</text>
+      </button>
+    </div>
+  );
+}
+
+
+function AddIssue(isVisible: any) {
+  const { open, setOpen, ref } = OutsideClick();
+  useEffect(
+    () => {
+      setOpen(isVisible);
+    }, [isVisible, setOpen]);
+
+  const [issuData, setIssueData] = useState<addIssueFormData>({
+    title: "",
+    decrpition: "",
+    raisedBy: localStorage.getItem('username'),
+    type: "",
+    category: "Bug",
+    subcategory: "",
+    piority: "non",
+    assignee: "-",
+    lable: "bug",
+    status: "todo",
+    attachment: {}
+  });
+
+  const onInputChange = (e: { target: { name: string; value: string; }; }) => {
+    setIssueData({
+      ...issuData,
+      [e.target.name]: e.target.value
+    });
+  }
+  
+  const submitForm = async (e:any) => {
     e.preventDefault();
-    console.log(JSON.stringify(this.state));
     var req_data: AxiosRequestConfig = {
       method: 'post',
       url: 'http://localhost:8765/api/data/addissue',
@@ -34,7 +68,7 @@ class AddIssue extends React.Component {
         'auth-token': localStorage.getItem('accessToken'),
         'Content-Type': 'application/json'
       },
-      data : this.state,
+      data : issuData,
     };
     await axios(req_data).then(function (response: { data: any; }) {
       console.log('data pushed to DB');
@@ -42,33 +76,24 @@ class AddIssue extends React.Component {
       console.log(error);
     });
   }
+  console.log('open?');
+  console.log(open);
 
-  selectButton = (props: any) => {
-    return (
-      <div className='select_button_conatiner'>
-        <button className='select_button' name={props.name}>
-          <img src={props.image} className='select_button_image' alt='img' />
-          <text>{props.text}</text>
-        </button>
-      </div>
-    );
-  }
-
-  render() {
-    return (
+  return (
+    (open)?
       <div className='add_new_issue'>
-        <div className='new_issue_container'>
+        <div className='new_issue_container' ref={ref}>
           <form className='new_issue_form'>
             <div className='textarea_container'>
-              <textarea className='form_input title' placeholder='Title' name='title' onChange={this.onInputChange} required />
-              <textarea className='form_input description' placeholder='Issue Description' name='decrpition' onChange={this.onInputChange} required />
+              <textarea className='form_input title' placeholder='Title' name='title' onChange={onInputChange} required />
+              <textarea className='form_input description' placeholder='Issue Description' name='decrpition' onChange={onInputChange} required />
             </div>
             <div className='select_options'>
-              <this.selectButton name='assignee' image='./assets/taskAssign.jpeg' text='Assignee' />
-              <this.selectButton name='piority' image='./assets/priority2.png' text='Piority' />
-              <this.selectButton name='label' image='./assets/label.jpg' text='Label' />
-              <this.selectButton name='status' image='./assets/status.png' text='Status' />
-              <this.selectButton name='more' image='./assets/more.png' text='More' />
+              <SelectButton name='assignee' image='./assets/taskAssign.jpeg' text='Assignee' />
+              <SelectButton name='piority' image='./assets/priority2.png' text='Piority' />
+              <SelectButton name='label' image='./assets/label.jpg' text='Label' />
+              <SelectButton name='status' image='./assets/status.png' text='Status' />
+              <SelectButton name='more' image='./assets/more.png' text='More' />
               {/* <select name="category" className='select_input' onChange={this.onInputChange} id="category">
                 <option value="category_id">fetch category</option>
               </select>
@@ -94,13 +119,14 @@ class AddIssue extends React.Component {
               </select> */}
             </div>
             <div className='submit_button_container'>
-              <button className='submit_form_btn' type='submit' onClick={this.submitForm}>Add Issue</button>
+              <button className='submit_form_btn' type='submit' onClick={submitForm}>Add Issue</button>
               <button className='cancel_form_btn'>Cancel</button>
             </div>
           </form>
-          </div>
-    </div>);
-  }
+        </div>
+      </div>
+    : <span></span>
+  );
 }
   
 export default AddIssue;

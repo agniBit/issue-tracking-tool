@@ -6,6 +6,8 @@ import './css/dashboard.scss'
 export default function Dashboard(props:any) {
   const [fetchData, fetchDataSet] = useState(Array);
   const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
+  const [showAddIssueForm, setShowAddIssueForm] = useState(false);
+
   useEffect(() => {
     if (accessToken) {
       console.log(fetchData);
@@ -33,12 +35,19 @@ export default function Dashboard(props:any) {
     } else {
       fetchDataSet(['login to continue'])
     }
-  }, []);
-  
+  }, [accessToken]);
 
   return (
     <div>
       <div className='dashboard'>
+        <div className='addIssue_btn_container'>
+          <button className='addIssue_btn' onClick={() => setShowAddIssueForm(!showAddIssueForm)}>
+            <div className='addIssue_Btn_containt'>
+              <div className='addIssue_image'></div>
+              <text>Add New Issue</text>
+            </div>
+          </button>
+        </div>
         <div className='data_row_wrapper'>
           {
             accessToken ?
@@ -58,7 +67,7 @@ export default function Dashboard(props:any) {
           }
         </div>
       </div>
-      <AddIssue />
+      <AddIssue isVisible={showAddIssueForm} />
     </div>
   );
 }
