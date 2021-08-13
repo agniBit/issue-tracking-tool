@@ -30,10 +30,20 @@
                 .title {
                     height: 4vh;
                     font-size: 30px;
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
                 }
                 .description {
                     height: 8vh;
                     font-size: 25px;
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
                 }
             }
             .select_options {
@@ -94,6 +104,7 @@
         -webkit-box-shadow: -2px 3px 17px 0px rgba(0,0,0,0.76);
         -moz-box-shadow: -2px 3px 17px 0px rgba(0,0,0,0.76);
     }
+
     .select_button {
         background-color: rgba(89, 54, 119, 0.5);
         display: flex;
@@ -106,13 +117,64 @@
             margin: auto;
             border-radius: 100%;
         }
-        text {
+        p {
             color: rgba(255, 255, 255, 0.493);
             font-size: 18px;
             margin: auto;
             margin-left: 5px;
-            // width: 80px;
         }
         
+    }
+    .opetion_select_wrapper {
+        position: absolute;
+        margin-top: 20px;
+        padding: 20px 25px;
+        background-color: darkslategray;
+        border-radius: 10px;
+        box-shadow: -2px 3px 17px 0px rgba(0,0,0,0.76);
+        -webkit-box-shadow: -2px 3px 17px 0px rgba(0,0,0,0.76);
+        -moz-box-shadow: -2px 3px 17px 0px rgba(0,0,0,0.76);
+        .options {
+            display: flex;
+            flex-direction: column;
+            max-height: 200px;
+            overflow-y: scroll;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            .option_row {
+                background-color: white;
+                margin: 5px;
+                padding: 6px 10px;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                img {
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 100%;
+                    margin-right: 15px;
+                }
+                p {
+                    text-align: center;
+                    font-size: 15px;
+                    font-weight: 300;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+        }
+        &:hover{
+            display: block;
+        }
+    }
+    &:hover{
+        .opetion_select_wrapper {
+            display: block;
+        }
     }
 }

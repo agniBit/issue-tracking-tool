@@ -19,24 +19,50 @@ interface addIssueFormData{
 }
 
 
-function SelectButton(props: any) {
+function ShowOptions(props: any) {
   return (
-    <div className='select_button_conatiner'>
-      <button className='select_button' name={props.name}>
-        <img src={props.image} className='select_button_image' alt='img' />
-        <text>{props.text}</text>
-      </button>
+    <div className='options'>
+      {props.options.map((optionData: { option: string, icon: string}, i: React.Key) => {
+        return (
+          <div className='option_row' key={i}>
+            <img src={`./assets/${optionData.icon}`} alt='i' />
+            <p>{optionData.option}</p>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
 
-function AddIssue(isVisible: any) {
+function SelectButton(props: any) {
   const { open, setOpen, ref } = OutsideClick();
+  return (
+    <div className='select_button_conatiner'>
+      <button className='select_button' name={props.name} onClick={()=>setOpen(!open)}>
+      <img src={props.image} className='select_button_image' alt='img' />
+      <p>{props.text}</p>
+    </button>
+    {(open) ?
+      <div className='opetion_select_wrapper' ref={ref}>
+        <ShowOptions options={props.list} />
+      </div>
+      : <span></span>
+    }
+    </div>
+  )
+}
+
+
+function AddIssue(prop:any) {
+  const { open, setOpen, ref } = OutsideClick();
+  const [check, setCheck] = useState(false);
+
   useEffect(
     () => {
-      setOpen(isVisible);
-    }, [isVisible, setOpen]);
+      if (check) { setOpen(true) };
+      setCheck(true);
+    }, [prop.isVisible]);
 
   const [issuData, setIssueData] = useState<addIssueFormData>({
     title: "",
@@ -58,6 +84,14 @@ function AddIssue(isVisible: any) {
       [e.target.name]: e.target.value
     });
   }
+
+  const optionData = {
+    assignee: [],
+    piority: [{ option: 'High', icon:'high_.png' }, { option: 'Medium', icon:'mid_.png' }, { option: 'Low', icon:'low_.png' }],
+    label: [{ option: 'Bug', icon:'bug.png' }, { option: 'Feature', icon:'feature.jpg' }, { option: 'Improvemnet', icon:'improvement.png' }],
+    status: [{ option: 'Todo', icon:'pending.png' }, { option: 'Assigned', icon:'taskAssign.jpeg' }, { option: 'Done', icon:'done.jpg' }, { option: 'Canceled', icon:'cancel.jpg' }],
+    more:[{ option: 'Add Another field', icon:'more.png' }]
+  };
   
   const submitForm = async (e:any) => {
     e.preventDefault();
@@ -80,52 +114,29 @@ function AddIssue(isVisible: any) {
   console.log(open);
 
   return (
-    (!open)?
-      <span></span>:
+    (open)?
       <div className='add_new_issue'>
         <div className='new_issue_container' ref={ref}>
-          <form className='new_issue_form'>
+          <div className='new_issue_form'>
             <div className='textarea_container'>
               <textarea className='form_input title' placeholder='Title' name='title' onChange={onInputChange} required />
               <textarea className='form_input description' placeholder='Issue Description' name='decrpition' onChange={onInputChange} required />
             </div>
             <div className='select_options'>
-              <SelectButton name='assignee' image='./assets/taskAssign.jpeg' text='Assignee' />
-              <SelectButton name='piority' image='./assets/priority2.png' text='Piority' />
-              <SelectButton name='label' image='./assets/label.jpg' text='Label' />
-              <SelectButton name='status' image='./assets/status.png' text='Status' />
-              <SelectButton name='more' image='./assets/more.png' text='More' />
-              {/* <select name="category" className='select_input' onChange={this.onInputChange} id="category">
-                <option value="category_id">fetch category</option>
-              </select>
-              <select name="assignee" className='select_input' onChange={this.onInputChange} id="assignee">
-                <option value="member_id">fetch team members</option>
-              </select>
-              <select name="piority" className='select_input' onChange={this.onInputChange} id="piority">
-                <option value="non">No priority</option>
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-              </select>
-              <select name="label" className='select_input' onChange={this.onInputChange} id="label">
-                <option value="bug">Bug</option>
-                <option value="feature">Feature</option>
-                <option value="improvemnet">Improvemnet</option>
-              </select>
-              <select name="status" className='select_input' onChange={this.onInputChange} id="status">
-                <option value="todo">Todo</option>
-                <option value="done">Done</option>
-                <option value="assigned">Assigned</option>
-                <option value="canceled">Canceled</option>
-              </select> */}
+              <SelectButton name='assignee' image='./assets/taskAssign.jpeg' text='Assignee' list={optionData.assignee}/>
+              <SelectButton name='piority' image='./assets/priority2.png' text='Piority' list={optionData.piority}/>
+              <SelectButton name='label' image='./assets/label.jpg' text='Label' list={optionData.label}/>
+              <SelectButton name='status' image='./assets/status.png' text='Status' list={optionData.status}/>
+              <SelectButton name='more' image='./assets/more.png' text='More' list={optionData.more}/>
             </div>
             <div className='submit_button_container'>
               <button className='submit_form_btn' type='submit' onClick={submitForm}>Add Issue</button>
-              <button className='cancel_form_btn'>Cancel</button>
+              <button className='cancel_form_btn' onClick={()=>setOpen(false)}>Cancel</button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
+      :<span></span>
   );
 }
   
