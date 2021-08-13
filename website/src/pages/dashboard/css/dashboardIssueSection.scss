@@ -1,0 +1,50 @@
+.dashboard {
+    background-color: transparent !important;
+    width: 68vw;
+    background-color: azure;
+    padding: 0 7vw;
+    margin: 0 !important;
+    color: white;
+    .data_row_wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        // opacity: .1;
+        // .even_row{
+        //     background-color: rgba(27,13,29,1);
+        // }
+        // .odd_row{
+        //     background-color: rgba(89,54,119,0.9556467563291139);
+        // }
+        .data_row {
+            background-color: rgba(255, 255, 255, 0.048);
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding: 7px 0;
+            transition: ease-out .3s;
+            border-radius: 5px;
+            .title{
+                flex: 2;
+                padding-left: 30px;
+            }
+            .decrpition{flex: 3;}
+            .raisedBy{flex: 1;}
+            .category{flex: 1;}
+            .subcategory{flex: 1;}
+            .piority{flex: 1;}
+            .assignee{flex: 1;}
+            .status{flex: 1;}
+            &:hover {
+                background-color: white !important;
+                color: black !important;
+                transition: .5s;
+                box-shadow: -1px 4px 13px -3px rgba(0,0,0,0.82);
+                -webkit-box-shadow: -1px 4px 13px -3px rgba(0,0,0,0.82);
+                -moz-box-shadow: -1px 4px 13px -3px rgba(0,0,0,0.82);
+            }
+        }
+    }
+}

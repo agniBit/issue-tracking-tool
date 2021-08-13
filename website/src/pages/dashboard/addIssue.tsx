@@ -80,7 +80,8 @@ function AddIssue(isVisible: any) {
   console.log(open);
 
   return (
-    (open)?
+    (!open)?
+      <span></span>:
       <div className='add_new_issue'>
         <div className='new_issue_container' ref={ref}>
           <form className='new_issue_form'>
@@ -125,7 +126,6 @@ function AddIssue(isVisible: any) {
           </form>
         </div>
       </div>
-    : <span></span>
   );
 }
   
