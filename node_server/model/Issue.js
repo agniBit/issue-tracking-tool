@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const issueSchema = new mongoose.Schema({
+    issueId : {
+        type: String
+    },
     title:{
         type: String,
         required: true,

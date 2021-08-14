@@ -1,7 +1,61 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-import AddIssue from "./addIssue";
 import './css/dashboardIssueSection.scss'
+
+function CreateRow(row: {
+  history: any,
+  issueId: string;
+  row_type: string;
+  title: string | null | undefined;
+  raisedBy: string | null | undefined;
+  category: string | null | undefined;
+  priority: string;
+  assignee: string | null | undefined;
+  status: string | null | undefined;
+  label: string | null | undefined;
+}) {
+  console.log(row);
+  const clickHandler = (e: any) => {
+    console.log(row.history);
+    row.history.push(`/dashboard/issue?issueId=${e}`);
+  }
+
+  var priority;
+  var status;
+  var category;
+
+  switch (row.priority?.toLowerCase()) {
+    case 'high': priority = '/assets/high_.png'; break;
+    case 'medium': priority = '/assets/mid_.png'; break;
+    case 'low': priority = '/assets/low_.png'; break;
+    default: priority = '/assets/low_.png';
+  }
+
+  switch (row.status?.toLowerCase()) {
+    case 'todo': status = '/assets/pending.png'; break;
+    case 'assigned': status = '/assets/taskAssign.jpeg'; break;
+    case 'done': status = '/assets/done.jpg'; break;
+    case 'canceled': status = '/assets/cancel.jpg'; break;
+    default: status = '/assets/pending.png';
+  }
+
+  switch (row.category?.toLowerCase()) {
+    case 'bug': category = '/assets/bug.png'; break;
+    case 'feature': category = '/assets/feature.jpg'; break;
+    case 'improvemnet': category = '/assets/improvement.png'; break;
+    default: category = '/assets/improvement.png';
+  }
+
+  return (
+    <div className={`data_row ${row.row_type}`} onClick={() => clickHandler(row.issueId)}>
+      <div className='icon priority'><img src={priority} alt='p' /></div>
+      <div className='icon category'><img src={category} alt='p' /></div>
+      <div className='title'>{row.title}</div>
+      <div className='raisedBy'>{row.raisedBy}</div>
+      <div className='icon status'><img src={status} alt='p' /></div>
+    </div>
+  );
+}
 
 export default function DashboardIssueSection(props:any) {
   const [fetchData, fetchDataSet] = useState(Array);
@@ -11,18 +65,15 @@ export default function DashboardIssueSection(props:any) {
   useEffect(() => {
     if (accessToken) {
       console.log(fetchData);
-      var data = JSON.stringify({
-        "skip": 100,
-        "limit": 20
-      });
+      var skip = 0;
+      var limit = 50;
       var config: AxiosRequestConfig = {
         method: 'get',
-        url: 'http://localhost:8765/api/data/getissues',
+        url: `http://localhost:8765/api/data/getissues?skip=${skip}&limit=${limit}`,
         headers: {
           'auth-token': accessToken,
           'Content-Type': 'application/json'
-        },
-        data: data
+        }
       };
       axios(config)
         .then(function (response: any) {
@@ -43,18 +94,13 @@ export default function DashboardIssueSection(props:any) {
         {
           accessToken ?
             fetchData.map((data, i) => {
-              var row_type:string = (i % 2 === 0) ? 'even_row' : 'odd_row';
+              var row_type: string = (i % 2 === 0) ? 'even_row' : 'odd_row';
               let d = JSON.parse(JSON.stringify(data));
               return (
-                <div key={i} className={`data_row ${row_type}`}>
-                  <div className='title'>{d.title}</div>
-                  <div className='raisedBy'>{d.raisedBy}</div>
-                  <div className='category'>{d.category}</div>
-                  <div className='piority'>{d.piority}</div>
-                  <div className='assignee'>{d.assignee}</div>
-                  <div className='status'>{d.status}</div>
-                </div>);
-            }) : <button onClick={() => { props.history.replace('/login'); }}>Login</button>
+                <CreateRow issueId={d.issueId} title={d.title} raisedBy={d.raisedBy} category={d.category} priority={d.priority} assignee={d.assignee} status={d.status} label={d.label} row_type={row_type} history={props.history}/>
+              );
+            })
+          : <button onClick={() => { props.history.replace('/login'); }}>Login</button>
         }
       </div>
     </div>

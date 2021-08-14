@@ -16,7 +16,7 @@ export default function NavbarDashboard() {
     <div className='navbar_container'>
       <div className='navbar_top_section'>
         <div className='profile_container'>
-          <img src='./assets/user.png' alt='user' />
+          <img src='/assets/user.png' alt='user' />
           <h3>Abhishek Agnihotri</h3>
         </div>
         <hr></hr>

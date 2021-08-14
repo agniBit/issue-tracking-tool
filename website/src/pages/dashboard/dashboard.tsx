@@ -3,8 +3,10 @@ import NavbarDashboard from "../../navbar/navbar";
 import DashboardIssueSection from "./dashboardIssueSection";
 import './css/dashboard.scss';
 import AddIssue from "./addIssue";
+import { Route, Router, Switch } from "react-router";
+import ShowIssue from "./issue";
 
-export default function Dashboard() {
+export default function Dashboard(props: { history: any; }) {
   const [showAddIssueForm, setShowAddIssueForm] = useState(false);
   return (
     <div className='dashboard_container'>
@@ -18,7 +20,11 @@ export default function Dashboard() {
             </div>
           </button>
         </div>
-        <DashboardIssueSection />
+          <Switch>
+            <Route path='/dashboard' exact component={DashboardIssueSection} />
+            <Route path='/dashboard/issue' exact component={ShowIssue} />
+          </Switch>
+        {/* </Router> */}
       </div>
       <AddIssue isVisible={showAddIssueForm} />
     </div>
