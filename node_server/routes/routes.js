@@ -32,7 +32,7 @@ router.post('/register', async (req, res) => {
             await user.save(function(err, doc){
                 if(err) res.json({"error()":err});
                 else {
-                        res.json({"status":"success"});
+                    res.json({"status":"success"});
                 }
             })
             console.log('saved');

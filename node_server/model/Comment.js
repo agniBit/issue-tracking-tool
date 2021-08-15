@@ -1,22 +1,47 @@
+const { string } = require('joi');
 const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
-    commentBy:{
-        type: String,
-        required: true,
-    },
-    comment: {
+    issueId : {
         type : String,
-        required: true,
-        max: 300,
     },
-    reffrence: {
-        type : String,
-        required: true,
-    },
-    attachment: {
-        type: object
-    }
+    comments: [
+        {
+            commentedBy:{
+                username: {
+                    type: String,
+                    required: true,
+                },
+                userInfo: {
+                    profileLink :{
+                        type: String, 
+                    },
+                    role: {
+                        type: String
+                    }
+                }
+            },
+            id: {
+                type: String,
+            },
+            comment: {
+                type : String,
+                required: true,
+                max: 1000,
+                min: 1,
+            },
+            reffrence: {
+                type : String,
+                required: true,
+            },
+            datetime: {
+                type: String
+            },
+            attachment: {
+                type: Object,
+            }
+        }
+    ]
 });
 
 
