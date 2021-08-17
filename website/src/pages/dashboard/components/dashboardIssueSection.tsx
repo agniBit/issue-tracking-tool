@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-import './css/dashboardIssueSection.scss'
+import '../css/dashboardIssueSection.scss'
 
-function CreateRow(row: {
-  history: any,
-  issueId: string;
-  row_type: string;
-  title: string | null | undefined;
-  raisedBy: string | null | undefined;
-  category: string | null | undefined;
-  priority: string;
-  assignee: string | null | undefined;
-  status: string | null | undefined;
-  label: string | null | undefined;
-}) {
-  console.log(row);
+let history: any;
+
+function CreateRow(props: any) {
+  const row = props.rowData;
+
   const clickHandler = (e: any) => {
-    console.log(row.history);
-    row.history.push(`/dashboard/issue?issueId=${e}`);
+    history.push(`/dashboard/issue?issueId=${e}`);
   }
 
   var priority;
@@ -61,10 +52,10 @@ export default function DashboardIssueSection(props:any) {
   const [fetchData, fetchDataSet] = useState(Array);
   const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
   const [showAddIssueForm, setShowAddIssueForm] = useState(false);
+  history = props.history;
 
   useEffect(() => {
     if (accessToken) {
-      console.log(fetchData);
       var skip = 0;
       var limit = 50;
       var config: AxiosRequestConfig = {
@@ -95,9 +86,9 @@ export default function DashboardIssueSection(props:any) {
           accessToken ?
             fetchData.map((data, i) => {
               var row_type: string = (i % 2 === 0) ? 'even_row' : 'odd_row';
-              let d = JSON.parse(JSON.stringify(data));
+              let d:any = JSON.parse(JSON.stringify(data));
               return (
-                <CreateRow issueId={d.issueId} title={d.title} raisedBy={d.raisedBy} category={d.category} priority={d.priority} assignee={d.assignee} status={d.status} label={d.label} row_type={row_type} history={props.history}/>
+                <CreateRow rowData={d} />
               );
             })
           : <button onClick={() => { props.history.replace('/login'); }}>Login</button>

@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import React, { useState, useEffect } from 'react';
-import OutsideClick from "../../clickOutSide";
-import './css/addIssue.scss'
+import OutsideClick from "../../../clickOutSide";
+import '../css/addIssue.scss'
 
 
 interface addIssueFormData{

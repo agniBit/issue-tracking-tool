@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import NavbarDashboard from "../../navbar/navbar";
-import DashboardIssueSection from "./dashboardIssueSection";
+import DashboardIssueSection from "./components/dashboardIssueSection";
 import './css/dashboard.scss';
-import AddIssue from "./addIssue";
+import AddIssue from "./components/addIssue";
 import { Route, Router, Switch } from "react-router";
-import ShowIssue from "./issue";
+import ShowIssue from "./components/issue";
 
 export default function Dashboard(props: { history: any; }) {
   const [showAddIssueForm, setShowAddIssueForm] = useState(false);
