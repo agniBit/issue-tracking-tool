@@ -1,0 +1,122 @@
+.issueSection {
+    background-color: transparent !important;
+    width: 68vw;
+    background-color: azure;
+    padding: 0 7vw;
+    margin: 0 !important;
+    color: white;
+    overflow-y: scroll;
+    padding-bottom: 7vh;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    .issueId {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 20px;
+        p {
+            font-size: 10px;
+            margin-right: 20px;
+        }
+        .copyClipboardlogo {
+            img {
+                width: 12px;
+                height: 12px;
+            }
+
+            .info_box {
+                border-radius: 10px;
+                background-color: gray;
+                display: none;
+                margin: 5px;
+                padding: 10px;
+                h5 {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+
+            &:hover {
+                .info_box {
+                    display: block; 
+                    position: absolute;
+                }
+            }
+        }
+    }
+    .title {
+        border-radius: 15px;
+        background-color: rgb(56, 56, 56);
+        min-height: 48px;
+        display: flex;
+        h3 {
+            margin: auto 30px;
+            font-size: 22px;
+        }
+    }
+    .description {
+        border-radius: 15px;
+        background-color: rgb(56, 56, 56);
+        min-height: 100px;
+        margin: 20px 0;
+        padding: 10px 20px;
+        p {
+            font-size: 14px;
+        }
+    }
+    .actions {
+        padding: 20px;
+        h4 {
+            font: 12px;
+        }
+        .actions_wrapper {
+            .comment_row {
+                display: flex;
+                flex-direction: row;
+                margin: 10px;
+                padding: 10px;
+                border-radius: 10px;
+                max-width: 65%;
+                background-color: rgb(56, 56, 56);
+                .user_image {
+                    img {
+                        height: 30px;
+                        width: 30px;
+                    }
+                }
+                .comment_box {
+                    h5 {
+                        margin: 0;
+                        padding: 0;
+                    }
+                    p {
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .comment_header {
+                        display: flex;
+                        flex-direction: row;
+                        margin: 3px 10px;
+                        .commented_by {
+                            margin-right: 10px;
+                        }
+                        .user_role {}
+                    }
+                    .comment_text {
+                        margin: 10px 10px;
+                        padding: 5px;
+                    }
+                    .comment_footer {
+                        padding: 0 20px 10px 0;
+                        p {
+                            font-size: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
